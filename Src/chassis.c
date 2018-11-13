@@ -6,8 +6,9 @@ static float Chassis_motor0 =0 , Chassis_motor1 =0 , Chassis_motor3 =0;
 static int chassis_poscnt = 0;
 static int chassis_posnum = 5;
 static int routeflag = 0;
-double chassis_xpos[] = { 0, 1, 1, 0, 0};
-double chassis_ypos[] = { 0, 0, -1, -1, 0};
+double chassis_xpos[NUM_POINTS] = { 0, 1,  1,  0, 0};
+double chassis_ypos[NUM_POINTS] = { 0, 0, -1, -1, 0};
+double chassis_speed[NUM_POINTS] = {0,1000,2000,1000,0};//速度表
 double *chassis_dis_to_bgn;
 double *chassis_dis_to_end;
 
@@ -18,6 +19,8 @@ float turn_output = 0;
 int g_ispeed = 0;
 float g_fangle = 0;
 float g_fturn = 0;
+
+int start_point=0;
 
 /**底盘初始化
 *参数：无
@@ -153,29 +156,71 @@ void chassis_calculate_dis_matrix()
         lastdis = chassis_dis_to_end[i];
     }
 }
-int start_point=0;
-int chassis_calculate_speed(int target_speed,int target_point)
+/****
+    *@brief 速度计算
+    *@param double now_speed : 当前速度
+    *@param double target_speed : 目标点的预设速度
+    *@param int target_point :目标点
+    *@retval 返回1到达预设点，返回代表还未到达预设点
+*/
+int chassis_calculate_speed(double now_speed,double target_speed,int target_point)//target_point从1开始
 {
-      double x1 = 0;
-      double param_a = 0, param_b = 0, param_c = 0, param_d = 0;
-      double delt_dis = 0;
-      //double delta_speed = last_speed - target_speed;
-      static double speed;
-      x1 = chassis_dis_to_bgn[target_point];
-      delt_dis = sqrt(pow(chassis.pos_x - chassis_xpos[target_point - 1] , 2) + pow(chassis.pos_y - chassis_ypos[target_point - 1] , 2));
-      if( speed < target_speed )//小于目标速度
-          {
-              speed =( param_c / ( 1 + pow( EXP , ( - log ( pow( EXP , param_a * ( delt_dis + param_b ) )-1) ) ) ) ) + param_d;             
-          }
-      if( abs ( (int)speed - target_speed ) <= 1 )//约等于目标速度
-              speed = target_speed;
-      if( speed > target_speed )//大于目标速度
-          {
-              speed =( param_c / ( 1 + pow( EXP , ( - log ( pow( EXP , param_a * ( x1 - delt_dis + param_b ) )-1) ) ) ) ) + param_d;
-          }
-      if(delt_dis >= chassis_dis_to_bgn[target_point])
-              start_point++;
-      return (int)speed;
+    
+        double x0 = 0,delt_dis_bgn = 0,delt_dis_end = 0;//存放进入上一个点起始速度对应的初始位移
+        double param_a = 0, param_b = 0;        
+        double speed = 0,angle = 0;
+        double xtrue = 0;//速度位移曲线的自变量
+        //double dis_betwin_two = chassis_dis_to_bgn[target_point];
+        
+        delt_dis_bgn = sqrt(pow(chassis.pos_x - chassis_xpos[target_point - 1] , 2) + pow(chassis.pos_y - chassis_ypos[target_point - 1] , 2));
+        delt_dis_end = sqrt(pow(chassis.pos_x - chassis_xpos[target_point] , 2) + pow(chassis.pos_y - chassis_ypos[target_point] , 2));
+        
+        if(delt_dis_end <= 1)
+            return 1;
+        
+        angle = atan2(chassis.pos_x - chassis_xpos[target_point - 1],chassis.pos_y - chassis_ypos[target_point - 1]);
+        
+        if(now_speed < target_speed)
+            {   
+                x0 = param_a / param_b *(log (param_a / (param_a - chassis_speed[target_point - 1])));
+                xtrue = x0 + delt_dis_bgn;
+                speed = param_a - param_a * pow(EXP , - (param_b / param_a) * xtrue);     
+            }
+        if(now_speed == target_speed)
+            {
+                speed = target_speed;
+            }
+        if(now_speed > target_speed)
+            {
+                x0 = param_a / param_b *(log (param_a / (param_a - chassis_speed[target_point])));
+                xtrue = x0 - delt_dis_end;
+                speed = param_a - param_a * pow(EXP , - (param_b / param_a) * xtrue);             
+            }
+        chassis_gostraight((int)speed , angle , 0);
+        return 0;
+}       
+//      double x1 = 0;
+//      double param_a = 0, param_b = 0, param_c = 0, param_d = 0;
+//      double delt_dis = 0;
+//      //double delta_speed = last_speed - target_speed;
+//      static double speed;
+//      x1 = chassis_dis_to_bgn[target_point];
+//      
+//      
+//      delt_dis = sqrt(pow(chassis.pos_x - chassis_xpos[target_point - 1] , 2) + pow(chassis.pos_y - chassis_ypos[target_point - 1] , 2));
+//      if( speed < target_speed )//小于目标速度
+//          {
+//              speed =( param_c / ( 1 + pow( EXP , ( - log ( pow( EXP , param_a * ( delt_dis + param_b ) )-1) ) ) ) ) + param_d;             
+//          }
+//      if( abs ( (int)speed - target_speed ) <= 1 )//约等于目标速度
+//              speed = target_speed;
+//      if( speed > target_speed )//大于目标速度
+//          {
+//              speed =( param_c / ( 1 + pow( EXP , ( - log ( pow( EXP , param_a * ( x1 - delt_dis + param_b ) )-1) ) ) ) ) + param_d;
+//          }
+//      if(delt_dis >= chassis_dis_to_bgn[target_point])
+//              start_point++;
+//      return (int)speed;
 //      if( abs ( (int)speed - target_speed ) <= 10 )//加速到目标速度左右
 //          {
 //              if( flag == 0)//第一次到目标速度
@@ -206,7 +251,7 @@ int chassis_calculate_speed(int target_speed,int target_point)
 //    x2 = chassis_dis_to_bgn[chassis_poscnt - 1] + dis_to_nextpos;
 //    
 //    return 1;
-}
+
 
 //底盘执行函数
 void chassis_exe()
@@ -220,7 +265,7 @@ void chassis_exe()
         if(dis_to_next <= 0.005)
         {
             double angle = atan2( chassis_ypos[chassis_poscnt] - chassis.pos_y,  chassis_xpos[chassis_poscnt] - chassis.pos_x);
-            g_ispeed = chassis_calculate_speed( 600);
+            //g_ispeed = chassis_calculate_speed( 600);
             g_fangle = angle;
             g_fturn = 0;
         }
@@ -238,4 +283,11 @@ void chassis_exe()
         }
     }
     chassis_gostraight(g_ispeed ,g_fangle,g_fturn);
+}
+void chassis_stop()
+{
+        maxon_setSpeed(&MOTOR0_ID,0);
+        maxon_setSpeed(&MOTOR3_ID,0);
+        maxon_setSpeed(&MOTOR1_ID,0);
+
 }

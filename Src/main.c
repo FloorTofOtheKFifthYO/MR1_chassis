@@ -186,14 +186,18 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 void HAL_SYSTICK_Callback(void){
   static int time_1ms_cnt;
-  static double dis;
+  static int num_points;
+  static int speed;
   time_1ms_cnt++;
   if(time_1ms_cnt%10 == 0){ 
     chassis_exe();
     chassis_update();//!!
-    chassis_calculate_speed(1000 , 2);
-
-    
+    if(chassis_calculate_speed(speed,chassis_speed[num_points],num_points) == 1)
+        {
+            num_points++;
+            if(num_points==NUM_POINTS)
+                chassis_stop();
+        }
   }
   if(time_1ms_cnt % 80 == 0)
   {

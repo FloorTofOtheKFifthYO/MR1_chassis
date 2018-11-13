@@ -14,6 +14,7 @@ extern "C" {
     
 #define PI 3.1415926535
 #define EXP 2.718281828
+#define NUM_POINTS 5
 typedef struct
 {
 	//全场定位传回的数据
@@ -53,6 +54,8 @@ extern float turn_output;
 extern int g_ispeed;
 extern float g_fangle;
 extern float g_fturn;
+extern double chassis_speed[NUM_POINTS];
+
 
 extern Chassis chassis;
 void chassis_init(void);
@@ -61,6 +64,8 @@ void chassis_gostraight(int speed , float angle, float turn);
 void chassis_calculate_dis_matrix();
 extern void chassis_exe();
 extern void chassis_go_route(int);
+int chassis_calculate_speed(double,double,int);//target_point从1开始
+extern void chassis_stop();
     
     
     
