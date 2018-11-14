@@ -6,9 +6,10 @@ static float Chassis_motor0 =0 , Chassis_motor1 =0 , Chassis_motor3 =0;
 static int chassis_poscnt = 0;
 static int chassis_posnum = 5;
 static int routeflag = 0;
-double chassis_xpos[NUM_POINTS] = { 0, 1,  1,  0, 0};
-double chassis_ypos[NUM_POINTS] = { 0, 0, -1, -1, 0};
-double chassis_speed[NUM_POINTS] = {0,1000,2000,1000,0};//速度表
+double chassis_xpos[NUM_POINTS] =  { 0, 1,  1,  0, 0};
+double chassis_ypos[NUM_POINTS] =  { 0, 0, -1, -1, 0};
+double chassis_speed[NUM_POINTS] = { 0,500,1000,500,0};//速度表
+double chassis_turn[NUM_POINTS] = { 0, 0,  0,  0, 0};//自转角度表
 double *chassis_dis_to_bgn;
 double *chassis_dis_to_end;
 
@@ -22,6 +23,7 @@ float g_fturn = 0;
 
 int start_point=0;
 
+int start_flag=0;
 /**底盘初始化
 *参数：无
 *返回值： 无
@@ -167,7 +169,7 @@ int chassis_calculate_speed(double now_speed,double target_speed,int target_poin
 {
     
         double x0 = 0,delt_dis_bgn = 0,delt_dis_end = 0;//存放进入上一个点起始速度对应的初始位移
-        double param_a = 0, param_b = 0;        
+        double param_a = 100, param_b = 1;        
         double speed = 0,angle = 0;
         double xtrue = 0;//速度位移曲线的自变量
         //double dis_betwin_two = chassis_dis_to_bgn[target_point];
@@ -196,7 +198,8 @@ int chassis_calculate_speed(double now_speed,double target_speed,int target_poin
                 xtrue = x0 - delt_dis_end;
                 speed = param_a - param_a * pow(EXP , - (param_b / param_a) * xtrue);             
             }
-        chassis_gostraight((int)speed , angle , 0);
+        uprintf("speed=%0.1f\r\nangle=%f\r\n",speed,angle);
+        chassis_gostraight((int)speed , angle , chassis_turn[target_point]);
         return 0;
 }       
 //      double x1 = 0;
@@ -286,6 +289,7 @@ void chassis_exe()
 }
 void chassis_stop()
 {
+        start_flag=0;
         maxon_setSpeed(&MOTOR0_ID,0);
         maxon_setSpeed(&MOTOR3_ID,0);
         maxon_setSpeed(&MOTOR1_ID,0);

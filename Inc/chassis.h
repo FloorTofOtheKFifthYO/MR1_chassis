@@ -55,6 +55,7 @@ extern int g_ispeed;
 extern float g_fangle;
 extern float g_fturn;
 extern double chassis_speed[NUM_POINTS];
+extern int start_flag;
 
 
 extern Chassis chassis;

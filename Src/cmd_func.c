@@ -48,3 +48,7 @@ void cmd_angle_pid(int argc, char *argv[])
     Angle_KP = atof(argv[1]);
     Angle_KD = atof(argv[2]);
 }
+void cmd_chassis_acc(int argc, char *argv[])//start_acc 1
+{
+    start_flag=atoi(argv[1]);
+}
