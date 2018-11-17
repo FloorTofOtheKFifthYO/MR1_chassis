@@ -25,9 +25,14 @@ void cmd_go_straight_func(int argc,char *argv[])//go_straight 1000 30
     g_fturn = atof(argv[3]);
 }
 
-void cmd_go_route_func(int argc, char *argv[])
+void cmd_go_route_func(int argc, char *argv[])//go_route 1 1500
 {
     chassis_go_route(atoi(argv[1]));
+    param_a = atof(argv[2]);
+    param_b = atof(argv[3]);
+    chassis_speed[1] = atof(argv[4]);
+    chassis_speed[3] = atof(argv[5]);
+    //setspeed = atof(argv[4]);
 }
 
 void cmd_reset_vega(int argc, char *argv[])
@@ -48,7 +53,7 @@ void cmd_angle_pid(int argc, char *argv[])
     Angle_KP = atof(argv[1]);
     Angle_KD = atof(argv[2]);
 }
-void cmd_chassis_acc(int argc, char *argv[])//start_acc 1
+void cmd_chassis_acc(int argc, char *argv[])//start_acc 1 1500 1
 {
     start_flag=atoi(argv[1]);
 }

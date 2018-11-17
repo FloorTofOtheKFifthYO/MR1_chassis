@@ -56,8 +56,9 @@ extern float g_fangle;
 extern float g_fturn;
 extern double chassis_speed[NUM_POINTS];
 extern int start_flag;
-
-
+extern double param_a;
+extern double param_b;
+extern double setspeed;
 extern Chassis chassis;
 void chassis_init(void);
 void chassis_update(void);
@@ -65,7 +66,7 @@ void chassis_gostraight(int speed , float angle, float turn);
 void chassis_calculate_dis_matrix();
 extern void chassis_exe();
 extern void chassis_go_route(int);
-int chassis_calculate_speed(double,double,int);//target_point从1开始
+//int chassis_calculate_speed(double,double,int);//target_point从1开始
 extern void chassis_stop();
     
     
