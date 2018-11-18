@@ -103,7 +103,7 @@ main()
     MX_UART4_Init();
     MX_TIM2_Init();
     MX_UART5_Init();
-    flag = 1;
+
     /* USER CODE BEGIN 2 */
     
     cmd_init();
@@ -111,6 +111,7 @@ main()
     chassis_init();
     
     uprintf("start...\r\n");
+    flag = 1;
     /* USER CODE END 2 */
     
     /* Infinite loop */
@@ -187,13 +188,14 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 void HAL_SYSTICK_Callback(void){
     static int time_1ms_cnt;
-//    static int num_points;
-//    static int speed;
     time_1ms_cnt++;
-    if(time_1ms_cnt%10 == 0){ 
-  
-        chassis_update();//!!
-        chassis_exe();
+    
+    if( flag == 1)
+    {
+        if(time_1ms_cnt%10 == 0)
+        { 
+            chassis_update();//!!
+            chassis_exe();
 //        if( start_flag == 1)
 //        {
 //            if(chassis_calculate_speed(speed,chassis_speed[num_points+1],num_points+1) == 1)
@@ -204,23 +206,21 @@ void HAL_SYSTICK_Callback(void){
 //            }
 //        }  
     }
-     if(time_1ms_cnt % 500 == 0)
-     {
-         uprintf("g_ispeed=%d\r\n",g_ispeed);
-     }
-    if(time_1ms_cnt % 80 == 0)
-    {
-        if(flag == 1)
+        if(time_1ms_cnt % 500 == 0)
+        {
+            uprintf("g_ispeed=%d, g_fturn=%f\r\n",g_ispeed,g_fturn);
+        }
+        if(time_1ms_cnt % 80 == 0)
         {
             //send_wave(1000*chassis.pos_x,1000*chassis.pos_y,1000*chassis.angle,turn_output);
             //uprintf("chassis.angle = %f,chassis.pos_x = %f,chassis.pos_y = %f",chassis.angle,chassis.pos_x,chassis.pos_y);
+            
+        }
+        if(time_1ms_cnt >= 65533)
+        {
+                time_1ms_cnt = 0;
         }
     }
-    if(time_1ms_cnt >= 65533)
-    {
-        time_1ms_cnt = 0;
-    }
-    
 }
 /* USER CODE END 4 */
 

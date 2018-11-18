@@ -14,7 +14,7 @@ extern "C" {
     
 #define PI 3.1415926535
 #define EXP 2.718281828
-#define NUM_POINTS 5
+#define NUM_POINTS 100
 typedef struct
 {
 	//全场定位传回的数据
@@ -46,7 +46,7 @@ typedef struct
 	float xfactor;
 } Chassis;  
 
-
+extern double chassis_speed_max ;
 extern float ERR_angle_m3 , ERR_angle_m1 , ERR_angle_m0  ;
 extern float Angle_KP;
 extern float Angle_KD;
