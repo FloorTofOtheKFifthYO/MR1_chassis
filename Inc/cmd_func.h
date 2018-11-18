@@ -12,6 +12,7 @@
 #include "math.h"
 #include "chassis.h"
 #include "vega.h"
+#include "track.h"
 #define PI 3.1415926535
 void cmd_hello_func(int argc,char *argv[]);
 void cmd_set_speed_func(int argc,char *argv[]);   

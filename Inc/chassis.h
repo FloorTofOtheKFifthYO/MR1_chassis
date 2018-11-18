@@ -9,12 +9,13 @@ extern "C" {
 #include "maxon.h"
 #include "usart.h"    
 #include "math.h"  
+#include "track.h"
 #include <stdbool.h>
     
     
 #define PI 3.1415926535
 #define EXP 2.718281828
-#define NUM_POINTS 100
+//#define NUM_POINTS 100
 typedef struct
 {
 	//全场定位传回的数据
@@ -46,19 +47,16 @@ typedef struct
 	float xfactor;
 } Chassis;  
 
-extern double chassis_speed_max ;
+//extern double chassis_speed_max ;
 extern float ERR_angle_m3 , ERR_angle_m1 , ERR_angle_m0  ;
-extern float Angle_KP;
-extern float Angle_KD;
-extern float turn_output;
+extern float chassis_turn_angle_KP;
+extern float chassis_turn_angle_KD;
 extern int g_ispeed;
 extern float g_fangle;
 extern float g_fturn;
-extern double chassis_speed[NUM_POINTS];
-extern int start_flag;
+//extern double chassis_speed[NUM_POINTS];
 extern double param_a;
 extern double param_b;
-extern double setspeed;
 extern Chassis chassis;
 void chassis_init(void);
 void chassis_update(void);
@@ -66,8 +64,7 @@ void chassis_gostraight(int speed , float angle, float turn);
 void chassis_calculate_dis_matrix();
 extern void chassis_exe();
 extern void chassis_go_route(int);
-//int chassis_calculate_speed(double,double,int);//target_point从1开始
-extern void chassis_stop();
+
     
     
     
