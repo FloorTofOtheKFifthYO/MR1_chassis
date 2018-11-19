@@ -9,7 +9,7 @@
         <LeaveTargetRunning>_ 0</LeaveTargetRunning>
     </StLinkDriver>
     <DebugChecksum>
-        <Checksum>1085655911</Checksum>
+        <Checksum>829100728</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -152,11 +152,13 @@
         <Bp0>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\chassis1.0}.484.1" 0 0 1 "" 0 "" 0</Bp0>
         <Bp1>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\chassis1.0}.484.1" 0 0 1 "" 0 "" 0</Bp1>
         <Bp2>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\chassis1.0}.484.1" 0 0 1 "" 0 "" 0</Bp2>
-        <Count>3</Count>
+        <Bp3>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Src\chassis.c}.197.13" 0 0 1 "" 0 "" 0</Bp3>
+        <Count>4</Count>
     </Breakpoints2>
     <Aliases>
-        <A0>_ "E:\ROBOCON\2019\chassis\Src\can.c" ""</A0>
-        <Count>1</Count>
-        <SuppressDialog>0</SuppressDialog>
+        <A0>_ "C:\Users\徐铭远\Desktop\chassis\EWARM\startup_stm32f407xx.s" ""</A0>
+        <A1>_ "E:\ROBOCON\2019\chassis\Src\can.c" ""</A1>
+        <Count>2</Count>
+        <SuppressDialog>1</SuppressDialog>
     </Aliases>
 </settings>

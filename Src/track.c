@@ -30,8 +30,8 @@ void track_goarc(int n, double X0, double Y0, double X, double Y, double Angle, 
 //参数：分段数 圆心x 圆心y 起始点x 起始点y 旋转角度(不是弧度，旋转方向逆时针为正) 是否跟随自转 
 {
 	if(n <= 0) n = 1;
-    double r = sqrt((X - X0) * (X - X0) + (Y0 - Y) * (Y - Y0));
-    double theta = atan2(Y - Y0, X - X0);
+    double r = sqrt((X - X0) * (X - X0) + (Y - Y0) * (Y - Y0));
+    double theta = atan2(Y0 - Y, X - X0);
     double Rad = PI * Angle / 180;
     for(int i = 1; i <= n; i++)
     {
@@ -52,6 +52,13 @@ void track_goarc(int n, double X0, double Y0, double X, double Y, double Angle, 
 
 void track_init()
 {
-	track_goline(10, 0, 0, 1, 1);
-	track_goarc(70, 2, 1, 1, 1, 180, 1);
+	track_goline(30, 0, 0, 0.6, 0.3464);
+	track_goarc(60, 0.8, 0, 0.6, 0.3464, -120, 0);
+    track_goarc(60, 1.6, 0, 1.2, 0, 180, 0);
+    track_goarc(60, 2.4, 0, 2, 0, -180, 0);
+    
+    track_goarc(60, 2.4, 0, 2.8, 0, -180, 0);
+    track_goarc(60, 1.6, 0, 2, 0, 180, 0);
+    track_goarc(60, 0.8, 0, 1.2, 0, -120, 0);
+    track_goline(30, 0.6, -0.3464, 0, 0);
 } 

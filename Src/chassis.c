@@ -150,7 +150,7 @@ int chassis_calculate_speed(double dis_to_nextpos)
     double speed = 0;
     if(x1 <= x2)
     {
-         speed = (param_a / 2) * pow(1 - pow(EXP, (-2 * x1 / param_b)), 0.5) + 200;
+         speed = (param_a / 2) * pow(1 - pow(EXP, (-2 * x1 / param_b)), 0.5) + 300;
          if(speed >= chassis_speed_max)
          {
              speed = chassis_speed_max;
@@ -176,8 +176,8 @@ void chassis_exe()
         double deltaX = chassis.pos_x - chassis_xpos[chassis_poscnt];
         double deltaY = chassis.pos_y - chassis_ypos[chassis_poscnt];
         double dis_to_next = sqrt(deltaX * deltaX + deltaY * deltaY);
-        if((dis_to_next <= 0.005 && (chassis_poscnt <= 1 || chassis_poscnt >= chassis_posnum - 1)) 
-            || (dis_to_next <= 0.02 && chassis_poscnt > 1 && chassis_poscnt < chassis_posnum - 1) )//判断经过此点
+        if((dis_to_next <= 0.005 && ( chassis_poscnt >= chassis_posnum - 1)) 
+            || (dis_to_next <= 0.03 && chassis_poscnt >= 0 && chassis_poscnt < chassis_posnum - 1) )//判断经过此点
         {
             chassis_poscnt++;
             g_fturn = chassis_turn[chassis_poscnt];//-= 20 * PI / 180;
