@@ -53,10 +53,17 @@ void cmd_modify_angle(int argc, char *argv[])
 void cmd_angle_pid(int argc, char *argv[])
 {
     chassis_turn_angle_KP = atof(argv[1]);
-    chassis_turn_angle_KD = atof(argv[2]);
-    
+    chassis_turn_angle_KD = atof(argv[2]); 
 }
+
 void cmd_chassis_acc(int argc, char *argv[])//start_acc 1 1500 1
 {
     //start_flag=atoi(argv[1]);
+}
+
+void cmd_quickturn_pid(int argc, char *argv[])
+{
+    quickturn_KP = atof(argv[1]);
+    quickturn_KD = atof(argv[2]); 
+    uprintf("qt_pid\r\n");
 }

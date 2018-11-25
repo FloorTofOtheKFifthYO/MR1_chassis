@@ -55,7 +55,7 @@
 /* #define USE_FULL_ASSERT    1U */
 
 /* USER CODE BEGIN Private defines */
-
+extern int main_flag;
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

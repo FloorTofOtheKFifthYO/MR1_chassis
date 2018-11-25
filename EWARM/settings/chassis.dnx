@@ -9,7 +9,7 @@
         <LeaveTargetRunning>_ 0</LeaveTargetRunning>
     </StLinkDriver>
     <DebugChecksum>
-        <Checksum>829100728</Checksum>
+        <Checksum>3475995927</Checksum>
     </DebugChecksum>
     <Exceptions>
         <StopOnUncaught>_ 0</StopOnUncaught>
@@ -30,8 +30,8 @@
         <ByteLimit>50</ByteLimit>
     </Stack>
     <Disassembly>
-        <MixedMode>1</MixedMode>
         <InstrCount>0</InstrCount>
+        <MixedMode>1</MixedMode>
     </Disassembly>
     <CallStack>
         <ShowArgs>0</ShowArgs>
@@ -58,6 +58,13 @@
         <CStepIntDis>_ 0</CStepIntDis>
         <LeaveTargetRunning>_ 0</LeaveTargetRunning>
     </JLinkDriver>
+    <Registers>
+        <regBase0>CAN1_ESR 10</regBase0>
+    </Registers>
+    <Trace1>
+        <Enabled>0</Enabled>
+        <ShowSource>1</ShowSource>
+    </Trace1>
     <PowerLog>
         <Title_0>I0</Title_0>
         <Symbol_0>0 4 0</Symbol_0>
@@ -72,9 +79,6 @@
         <Probe0>I0</Probe0>
         <ProbeSetup0>2 1 1 2 0 0</ProbeSetup0>
     </PowerProbe>
-    <Registers>
-        <regBase0>CAN1_ESR 10</regBase0>
-    </Registers>
     <struct_types>
         <Fmt0>CanRxMsgTypeDef-StdId	4	0</Fmt0>
     </struct_types>
@@ -152,13 +156,14 @@
         <Bp0>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\chassis1.0}.484.1" 0 0 1 "" 0 "" 0</Bp0>
         <Bp1>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\chassis1.0}.484.1" 0 0 1 "" 0 "" 0</Bp1>
         <Bp2>_ 0 "EMUL_CODE" "{$PROJ_DIR$\..\chassis1.0}.484.1" 0 0 1 "" 0 "" 0</Bp2>
-        <Bp3>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Src\chassis.c}.197.13" 0 0 1 "" 0 "" 0</Bp3>
+        <Bp3>_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\Src\chassis.c}.131.11" 0 0 1 "" 0 "" 0</Bp3>
         <Count>4</Count>
     </Breakpoints2>
     <Aliases>
-        <A0>_ "C:\Users\徐铭远\Desktop\chassis\EWARM\startup_stm32f407xx.s" ""</A0>
-        <A1>_ "E:\ROBOCON\2019\chassis\Src\can.c" ""</A1>
-        <Count>2</Count>
+        <A0>_ "C:\Users\wangyunxuan\Desktop\Robocon\chassis\chassis11_24手柄控制\Src\main.c" ""</A0>
+        <A1>_ "C:\Users\徐铭远\Desktop\chassis\EWARM\startup_stm32f407xx.s" ""</A1>
+        <A2>_ "E:\ROBOCON\2019\chassis\Src\can.c" ""</A2>
+        <Count>3</Count>
         <SuppressDialog>1</SuppressDialog>
     </Aliases>
 </settings>

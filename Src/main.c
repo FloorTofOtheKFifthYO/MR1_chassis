@@ -49,7 +49,7 @@
 #include "chassis.h"
 #include "vega.h"
 
-int flag = 0;
+int main_flag = 0;
 int chassis_flag = 0;
 /* USER CODE BEGIN Includes */
 
@@ -71,7 +71,7 @@ void SystemClock_Config(void);
 
 /* USER CODE BEGIN 0 */
 /* USER CODE END 0 */
-main()
+int main()
 {
     
     /* USER CODE BEGIN 1 */
@@ -111,19 +111,20 @@ main()
     can_init(); 
     chassis_init();
     
-    uprintf("start...\r\n");
-    flag = 1;
+    
+    //can_send_msg(325, "hello",6);
+    main_flag = 1;
     /* USER CODE END 2 */
     
     /* Infinite loop */
     /* USER CODE BEGIN WHILE */
     while (1)
     {
-        
+       // uprintf("here\r\n");
         /* USER CODE END WHILE */
         //chassis_update();
         usart_exc();
-        if(chassis_flag == 1)
+        //if(chassis_flag == 1)
         {
             chassis_exe();
             chassis_flag = 0;
@@ -132,7 +133,6 @@ main()
         /* USER CODE BEGIN 3 */
     }
     /* USER CODE END 3 */
-    
 }
 
 /** System Clock Configuration
@@ -194,19 +194,20 @@ void SystemClock_Config(void)
 void HAL_SYSTICK_Callback(void){
     static int time_1ms_cnt;
     time_1ms_cnt++;
-    if( flag == 1)
+    if(main_flag == 1)
     {
         if(time_1ms_cnt % 10 == 0)
         { 
             chassis_flag = 1;
-            //chassis_exe();  //update放到了exe里面
         }
         if(time_1ms_cnt % 500 == 0)
         {
-            uprintf("g_ispeed=%d, g_fturn=%f\r\n",g_ispeed,g_fturn);
+            //uprintf("g_ispeed=%d, g_fturn=%f\r\n",g_ispeed,g_fturn);
         }
-        if(time_1ms_cnt % 80 == 0)
+        if(time_1ms_cnt % 50 == 0)
         {
+            uprintf("%f,",chassis.pos_x);
+            uprintf("%f\r\n",chassis.pos_y);
             //send_wave(1000*chassis.pos_x,1000*chassis.pos_y,1000*chassis.angle,turn_output);
             //uprintf("chassis.angle = %f,chassis.pos_x = %f,chassis.pos_y = %f",chassis.angle,chassis.pos_x,chassis.pos_y);
         }

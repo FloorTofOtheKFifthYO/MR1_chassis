@@ -52,13 +52,13 @@ void track_goarc(int n, double X0, double Y0, double X, double Y, double Angle, 
 
 void track_init()
 {
-	track_goline(30, 0, 0, 0.6, 0.3464);
-	track_goarc(60, 0.8, 0, 0.6, 0.3464, -120, 0);
-    track_goarc(60, 1.6, 0, 1.2, 0, 180, 0);
-    track_goarc(60, 2.4, 0, 2, 0, -180, 0);
+	track_goline(300, 0, 0, 0.6, 0.3464);
+	track_goarc(300, 0.8, 0, 0.6, 0.3464, -120, 0);
+    track_goarc(300, 1.6, 0, 1.2, 0, 180, 0);
+    track_goarc(300, 2.4, 0, 2, 0, -180, 0);
     
-    track_goarc(60, 2.4, 0, 2.8, 0, -180, 0);
-    track_goarc(60, 1.6, 0, 2, 0, 180, 0);
-    track_goarc(60, 0.8, 0, 1.2, 0, -120, 0);
-    track_goline(30, 0.6, -0.3464, 0, 0);
+    track_goarc(300, 2.4, 0, 2.8, 0, -180, 0);
+    track_goarc(300, 1.6, 0, 2, 0, 180, 0);
+    track_goarc(300, 0.8, 0, 1.2, 0, -120, 0);
+    track_goline(300, 0.6, -0.3464, 0, 0);
 } 

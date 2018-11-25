@@ -15,7 +15,8 @@ static cmd_struct cmd_tbl[] = {
     CMD_ADD("reset_vega","复位全场定位",cmd_reset_vega),
     CMD_ADD("modify_angle","改变方向解算角",cmd_modify_angle),
     CMD_ADD("angle_pid","底盘自转角pid",cmd_angle_pid),
-    CMD_ADD("start_acc","加速曲线",cmd_chassis_acc)
+    CMD_ADD("start_acc","加速曲线",cmd_chassis_acc),
+    CMD_ADD("qt_pid","快速转向pid",cmd_quickturn_pid)
 };
 char cmd_line[MAX_CMD_LINE_LENGTH + 1];
 char *cmd_argv[MAX_ARGC]; 

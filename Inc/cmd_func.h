@@ -23,6 +23,7 @@ void cmd_reset_vega(int argc, char *argv[]);
 void cmd_modify_angle(int argc, char *argv[]);
 void cmd_angle_pid(int argc, char *argv[]);
 void cmd_chassis_acc(int argc, char *argv[]);
+void cmd_quickturn_pid(int argc, char *argv[]);
    
 #ifdef __cplusplus
 }

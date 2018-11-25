@@ -51,6 +51,8 @@ typedef struct
 extern float ERR_angle_m3 , ERR_angle_m1 , ERR_angle_m0  ;
 extern float chassis_turn_angle_KP;
 extern float chassis_turn_angle_KD;
+extern float quickturn_KP;
+extern float quickturn_KD;
 extern int g_ispeed;
 extern float g_fangle;
 extern float g_fturn;
@@ -62,6 +64,8 @@ void chassis_init(void);
 void chassis_update(void);
 void chassis_gostraight(int speed , float angle, float turn); 
 void chassis_calculate_dis_matrix();
+void chassis_handle_control();
+void chassis_handle(CanRxMsgTypeDef* pRxMsg);
 extern void chassis_exe();
 extern void chassis_go_route(int);
 

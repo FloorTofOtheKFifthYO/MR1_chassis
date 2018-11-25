@@ -6,7 +6,7 @@ extern "C" {
     
 #include <math.h>
 #include "chassis.h"
-#define NUM_POINTS 1000
+#define NUM_POINTS 3000
 extern double chassis_xpos[NUM_POINTS];//X×ø±ê 
 extern double chassis_ypos[NUM_POINTS];//Y×ø±ê 
 extern double chassis_turn[NUM_POINTS];
