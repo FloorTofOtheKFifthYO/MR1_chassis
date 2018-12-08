@@ -11,6 +11,7 @@ extern "C" {
 #include "math.h"  
 #include "track.h"
 #include <stdbool.h>
+#include "distance.h"
     
     
 #define PI 3.1415926535
@@ -34,7 +35,10 @@ typedef struct
 	//状态
 	enum {car_stop, car_running, car_ready} car_state;//车的运动状态
 	
-	
+	int dis_1;
+        int dis_2;
+        int dis_3;
+        int dis_laser;
 	//参数
 	float Angle_radium;//停角度范围
 	int Angle_speed;

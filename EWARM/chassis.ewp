@@ -1047,6 +1047,9 @@
                 <name>$PROJ_DIR$\..\Src\cmd_func.c</name>
             </file>
             <file>
+                <name>$PROJ_DIR$\..\Src\distance.c</name>
+            </file>
+            <file>
                 <name>$PROJ_DIR$\..\Src\gpio.c</name>
             </file>
             <file>

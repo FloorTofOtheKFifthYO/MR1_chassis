@@ -13,7 +13,9 @@
 #include "chassis.h"
 #include "vega.h"
 #include "track.h"
+#include "distance.h"
 #define PI 3.1415926535
+
 void cmd_hello_func(int argc,char *argv[]);
 void cmd_set_speed_func(int argc,char *argv[]);   
 void cmd_stop_func(int argc,char *argv[]);   
@@ -23,7 +25,8 @@ void cmd_reset_vega(int argc, char *argv[]);
 void cmd_modify_angle(int argc, char *argv[]);
 void cmd_angle_pid(int argc, char *argv[]);
 void cmd_chassis_acc(int argc, char *argv[]);
-   
+void cmd_lock_distance(int argc, char *argv[]); 
+void cmd_check_distance(int argc, char *argv[]);  
 #ifdef __cplusplus
 }
 #endif

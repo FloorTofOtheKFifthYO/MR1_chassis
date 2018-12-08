@@ -42,6 +42,7 @@
 #include <assert.h>
 #include "gpio.h"
 #include "vega.h"
+#include "distance.h"
 
 /* USER CODE BEGIN 0 */
 static int canlistnum = 0;
@@ -152,6 +153,10 @@ void can_init()
     }
     uprintf("can ready!!!");
       can_add_callback(0X11,vega_msg_rcv_callback);//添加接收vega消息的回调函数
+      can_add_callback(0x08,ultrasonic_msg_rev_callback);
+      can_add_callback(0x10,ultrasonic_msg_rev_callback);
+      can_add_callback(0x40,ultrasonic_msg_rev_callback);
+      can_add_callback(0x66,laser_msg_rev_callback);
 }
 
 void Configure_Filter(void)
@@ -238,6 +243,7 @@ int CAN_LIST_MATCH(uint32_t ID, CanRxMsgTypeDef* pRxMsg)
 ****/
 void HAL_CAN_RxCpltCallback(CAN_HandleTypeDef* hcan1)	
 {
+    RxMessage.ExtId=hcan1->pRxMsg->StdId;
     CAN_LIST_MATCH(hcan1->pRxMsg->StdId, hcan1->pRxMsg);
     if(HAL_CAN_Receive_IT(hcan1,CAN_FIFO0)!=HAL_OK)
     {
@@ -253,6 +259,7 @@ void HAL_CAN_ErrorCallback(CAN_HandleTypeDef *hcan){
         __HAL_CAN_ENABLE_IT(hcan, CAN_IT_FOV0 | CAN_IT_FMP0);
     }
 }
+
 /* USER CODE END 1 */
 
 /**

@@ -15,7 +15,9 @@ static cmd_struct cmd_tbl[] = {
     CMD_ADD("reset_vega","复位全场定位",cmd_reset_vega),
     CMD_ADD("modify_angle","改变方向解算角",cmd_modify_angle),
     CMD_ADD("angle_pid","底盘自转角pid",cmd_angle_pid),
-    CMD_ADD("start_acc","加速曲线",cmd_chassis_acc)
+    CMD_ADD("start_acc","加速曲线",cmd_chassis_acc),
+    CMD_ADD("lock_distance","锁定检查的感器距离",cmd_lock_distance),
+    CMD_ADD("check_distance","检查并记录感器距离",cmd_check_distance)
 };
 char cmd_line[MAX_CMD_LINE_LENGTH + 1];
 char *cmd_argv[MAX_ARGC]; 

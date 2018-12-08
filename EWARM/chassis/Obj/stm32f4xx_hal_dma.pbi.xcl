@@ -1,17 +1,17 @@
-"C:\Users\徐铭远\Desktop\chassis\chassis1.0\chassis5.0\chassis\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma.c"
+"C:\Users\徐铭远\Desktop\robot\MR1\chassis\MR1_chassis\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_dma.c"
 -std=c11
 -ferror-limit=0
 -fbracket-depth=512
 -I
-C:\Users\徐铭远\Desktop\chassis\chassis1.0\chassis5.0\chassis\EWARM/../Inc
+C:\Users\徐铭远\Desktop\robot\MR1\chassis\MR1_chassis\EWARM/../Inc
 -I
-C:\Users\徐铭远\Desktop\chassis\chassis1.0\chassis5.0\chassis\EWARM/../Drivers/STM32F4xx_HAL_Driver/Inc
+C:\Users\徐铭远\Desktop\robot\MR1\chassis\MR1_chassis\EWARM/../Drivers/STM32F4xx_HAL_Driver/Inc
 -I
-C:\Users\徐铭远\Desktop\chassis\chassis1.0\chassis5.0\chassis\EWARM/../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy
+C:\Users\徐铭远\Desktop\robot\MR1\chassis\MR1_chassis\EWARM/../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy
 -I
-C:\Users\徐铭远\Desktop\chassis\chassis1.0\chassis5.0\chassis\EWARM/../Drivers/CMSIS/Device/ST/STM32F4xx/Include
+C:\Users\徐铭远\Desktop\robot\MR1\chassis\MR1_chassis\EWARM/../Drivers/CMSIS/Device/ST/STM32F4xx/Include
 -I
-C:\Users\徐铭远\Desktop\chassis\chassis1.0\chassis5.0\chassis\EWARM/../Drivers/CMSIS/Include
+C:\Users\徐铭远\Desktop\robot\MR1\chassis\MR1_chassis\EWARM/../Drivers/CMSIS/Include
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\arm\CMSIS\Core\Include
 -I
@@ -21,15 +21,15 @@ C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\arm\inc
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\arm\inc\c
 -I
-C:\Users\徐铭远\Desktop\chassis\chassis1.0\chassis5.0\chassis\Inc
+C:\Users\徐铭远\Desktop\robot\MR1\chassis\MR1_chassis\Inc
 -I
-C:\Users\徐铭远\Desktop\chassis\chassis1.0\chassis5.0\chassis\Drivers\STM32F4xx_HAL_Driver\Inc
+C:\Users\徐铭远\Desktop\robot\MR1\chassis\MR1_chassis\Drivers\STM32F4xx_HAL_Driver\Inc
 -I
-C:\Users\徐铭远\Desktop\chassis\chassis1.0\chassis5.0\chassis\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy
+C:\Users\徐铭远\Desktop\robot\MR1\chassis\MR1_chassis\Drivers\STM32F4xx_HAL_Driver\Inc\Legacy
 -I
-C:\Users\徐铭远\Desktop\chassis\chassis1.0\chassis5.0\chassis\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+C:\Users\徐铭远\Desktop\robot\MR1\chassis\MR1_chassis\Drivers\CMSIS\Device\ST\STM32F4xx\Include
 -I
-C:\Users\徐铭远\Desktop\chassis\chassis1.0\chassis5.0\chassis\Drivers\CMSIS\Include
+C:\Users\徐铭远\Desktop\robot\MR1\chassis\MR1_chassis\Drivers\CMSIS\Include
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\arm\CMSIS\Core\Include
 -I
