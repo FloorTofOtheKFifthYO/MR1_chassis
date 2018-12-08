@@ -425,11 +425,6 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
         }
     }
     HAL_UART_Receive_IT(&huart5,(uint8_t *)&aRxBuffer,RXBUFFERSIZE);  
-
-//    if(__HAL_UART_GET_FLAG(&huart5,HAL_UART_ERROR_ORE))
-//    {
-//        __HAL_UART_CLEAR_OREFLAG(&huart5);
-//    }
 }
 
 

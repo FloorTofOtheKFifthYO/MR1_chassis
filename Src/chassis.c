@@ -48,28 +48,6 @@ void chassis_update(void)
   chassis.pos_x = chassis.g_vega_pos_x * 0.0001 * 0.81;
   chassis.pos_y = - chassis.g_vega_pos_y * 0.0001 * 0.81;//这个地方全场定位y反了，注意！！！！
   chassis.angle = - (chassis.g_vega_angle / 180.f) * PI;
-//  if(lock_flag == 1)
-//  {
-//    chassis.pos_x = ( - lock2 + chassis.dis_2);
-//    chassis.angle = (lock_turn/180.f)*PI;
-//    uprintf("chassis.pos_x=%f\r\n",chassis.pos_x);
-//    if(routeflag==0)
-//    {
-//        uprintf("start lock y \r\n");
-//        if(abs(chassis.dis_laser-lock_laser)<=1)
-//        {
-//          lock_flag = 0;
-//          uprintf("lock ok\r\n");
-//        }
-//        else
-//        {
-//          if(lock_laser - chassis.dis_laser<0)
-//              chassis_gostraight(500,1.570796,chassis.angle);
-//          else
-//              chassis_gostraight(500,-1.570796,chassis.angle);
-//        }
-//    }
-//  }
 }
 
 /*
@@ -137,8 +115,6 @@ void chassis_go_route(int flag)
 //计算距离
 void chassis_calculate_dis_matrix()
 {
-  //chassis_dis_to_bgn = (double*)malloc((chassis_posnum) * sizeof(double));
-  //chassis_dis_to_end = (double*)malloc((chassis_posnum) * sizeof(double));
   double lastdis = 0;
   chassis_dis_to_bgn[0] = 0;
   for(int i = 1; i < chassis_posnum; i++)
@@ -193,10 +169,6 @@ int chassis_calculate_speed(double dis_to_nextpos)
 //底盘执行函数
 void chassis_exe()
 {
-//  if(lock_flag == 1)
-//  {
-//    read_alldis();
-//  }
   chassis_update();
   if(1 == routeflag)
   {
@@ -208,11 +180,6 @@ void chassis_exe()
     {
       chassis_poscnt++;
       g_fturn = chassis_turn[chassis_poscnt];//-= 20 * PI / 180;
-//      if(chassis_posnum - chassis_poscnt <= 10)
-//      {
-//        lock_flag=1;
-//        routeflag=0;
-//      }
       if(chassis_poscnt >= chassis_posnum)//到达目的地
       {
         chassis_poscnt = 0;

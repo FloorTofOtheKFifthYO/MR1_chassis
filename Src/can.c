@@ -153,10 +153,10 @@ void can_init()
     }
     uprintf("can ready!!!");
       can_add_callback(0X11,vega_msg_rcv_callback);//添加接收vega消息的回调函数
-      can_add_callback(0x08,ultrasonic_msg_rev_callback);
-      can_add_callback(0x10,ultrasonic_msg_rev_callback);
-      can_add_callback(0x40,ultrasonic_msg_rev_callback);
-      can_add_callback(0x66,laser_msg_rev_callback);
+      can_add_callback(0x08,ultrasonic_msg_rev_callback);//超聲波1
+      can_add_callback(0x10,ultrasonic_msg_rev_callback);//2
+      can_add_callback(0x40,ultrasonic_msg_rev_callback);//3
+      can_add_callback(0x66,laser_msg_rev_callback);//激光
 }
 
 void Configure_Filter(void)

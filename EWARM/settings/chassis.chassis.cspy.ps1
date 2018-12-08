@@ -23,9 +23,9 @@
 
 if ($debugfile -eq "")
 {
-& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\common\bin\cspybat" -f "C:\Users\徐铭远\Desktop\robot\MR1\chassis\MR1_chassis\EWARM\settings\chassis.chassis.general.xcl" --backend -f "C:\Users\徐铭远\Desktop\robot\MR1\chassis\MR1_chassis\EWARM\settings\chassis.chassis.driver.xcl" 
+& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\common\bin\cspybat" -f "C:\Users\徐铭远\Desktop\chassis\MR1_chassis\EWARM\settings\chassis.chassis.general.xcl" --backend -f "C:\Users\徐铭远\Desktop\chassis\MR1_chassis\EWARM\settings\chassis.chassis.driver.xcl" 
 }
 else
 {
-& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\common\bin\cspybat" -f "C:\Users\徐铭远\Desktop\robot\MR1\chassis\MR1_chassis\EWARM\settings\chassis.chassis.general.xcl" --debug_file=$debugfile --backend -f "C:\Users\徐铭远\Desktop\robot\MR1\chassis\MR1_chassis\EWARM\settings\chassis.chassis.driver.xcl" 
+& "C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\common\bin\cspybat" -f "C:\Users\徐铭远\Desktop\chassis\MR1_chassis\EWARM\settings\chassis.chassis.general.xcl" --debug_file=$debugfile --backend -f "C:\Users\徐铭远\Desktop\chassis\MR1_chassis\EWARM\settings\chassis.chassis.driver.xcl" 
 }

@@ -59,7 +59,6 @@ void vega_msg_rcv_callback(CanRxMsgTypeDef *can_rx_msg){
         memcpy((void*)g_vega_angle,&temp.float_form,4);
         
     }
-    //} 
     
 
 }
