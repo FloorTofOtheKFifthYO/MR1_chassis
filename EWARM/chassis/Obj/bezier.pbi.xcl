@@ -1,4 +1,4 @@
-"C:\Users\徐铭远\Desktop\robot\MR1\chassis\MR1_chassis\Src\usart.c"
+"C:\Users\徐铭远\Desktop\robot\MR1\chassis\MR1_chassis\Src\bezier.c"
 -std=c11
 -ferror-limit=0
 -fbracket-depth=512

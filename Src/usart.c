@@ -425,6 +425,11 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
         }
     }
     HAL_UART_Receive_IT(&huart5,(uint8_t *)&aRxBuffer,RXBUFFERSIZE);  
+    
+    //    if(__HAL_UART_GET_FLAG(&huart5,HAL_UART_ERROR_ORE))
+    //    {
+    //        __HAL_UART_CLEAR_OREFLAG(&huart5);
+    //    }
 }
 
 
@@ -443,12 +448,32 @@ void send_wave(float arg1,float arg2,float arg3,float arg4){
     HAL_UART_Transmit(&huart5,(uint8_t *)s, 22,1000);
     
 }
+
 void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
 {
+    uint32_t isrflags   = READ_REG(huart->Instance->SR);//手册上有讲，清错误都要先读SR
+    if((__HAL_UART_GET_FLAG(huart, UART_FLAG_PE))!=RESET)
+    {
+        READ_REG(huart->Instance->DR);//PE清标志，第二步读DR
+        __HAL_UART_CLEAR_FLAG(huart, UART_FLAG_PE);//清标志
+    }
+    if((__HAL_UART_GET_FLAG(huart, UART_FLAG_FE))!=RESET)
+    {
+        READ_REG(huart->Instance->DR);//FE清标志，第二步读DR
+        __HAL_UART_CLEAR_FLAG(huart, UART_FLAG_FE);
+    }
     
-    //__HAL_UART_CLEAR_OREFLAG(&huart5);
-    //HAL_UART_Receive_IT(&huart5,(uint8_t *)&aRxBuffer,RXBUFFERSIZE);  
+    if((__HAL_UART_GET_FLAG(huart, UART_FLAG_NE))!=RESET)
+    {
+        READ_REG(huart->Instance->DR);//NE清标志，第二步读DR
+        __HAL_UART_CLEAR_FLAG(huart, UART_FLAG_NE);
+    }        
     
+    if((__HAL_UART_GET_FLAG(huart, UART_FLAG_ORE))!=RESET)
+    {
+        READ_REG(huart->Instance->CR1);//ORE清标志，第二步读CR
+        __HAL_UART_CLEAR_FLAG(huart, UART_FLAG_ORE);
+    }
 }
 void usart_exc()
 {

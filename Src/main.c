@@ -121,6 +121,7 @@ main()
     {
         
         /* USER CODE END WHILE */
+        //chassis_update();
         usart_exc();
         
         if(chassis_flag == 1)
@@ -128,6 +129,8 @@ main()
             chassis_exe();
             chassis_flag = 0;
         }
+       
+        //HAL_Delay(1000);
         /* USER CODE BEGIN 3 */
     }
     /* USER CODE END 3 */
@@ -198,15 +201,18 @@ void HAL_SYSTICK_Callback(void){
         if(time_1ms_cnt % 10 == 0)
         { 
             chassis_flag = 1;
+            //chassis_exe();  //update放到了exe里面
         }
         if(time_1ms_cnt % 50 == 0)
         {
-
+            //uprintf("g_ispeed=%d, g_fturn=%f\r\n",g_ispeed,g_fturn);
         }
         if(time_1ms_cnt % 500 == 0)
         {
             
 
+            //send_wave(1000*chassis.pos_x,1000*chassis.pos_y,1000*chassis.angle,turn_output);
+            //uprintf("chassis.angle = %f,chassis.pos_x = %f,chassis.pos_y = %f",chassis.angle,chassis.pos_x,chassis.pos_y);
         }
         if(time_1ms_cnt >= 65533)
         {

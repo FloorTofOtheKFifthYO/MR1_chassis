@@ -62,10 +62,10 @@ void cmd_chassis_acc(int argc, char *argv[])//start_acc 1 1500 1
 
 void cmd_lock_distance(int argc, char *argv[])//lock_distance
 {
-  can_send_msg(0x66,"open",4);//開啓讀傳感器數據值
-  lock_angle(lock_laser,lock1);//鎖定角度
-  lock_distance(lock2,lock_laser);//鎖定距離
-  can_send_msg(0x66,"close",5);//關閉讀傳感器數值
+  can_send_msg(0x66,"open",4);
+  lock_angle(lockangle);
+  lock_distance(lock2,lock_laser);
+  can_send_msg(0x66,"close",5);
   uprintf("lock ok!!!");
 }
 
@@ -76,13 +76,14 @@ void cmd_check_distance(int argc, char *argv[])//check_distance
   chassis.dis_3=0;
   chassis.dis_laser=0;
   
-  can_send_msg(0x66,"open",4);//開啓讀傳感器數據值
+  can_send_msg(0x66,"open",4);
   while(chassis.dis_1==0||chassis.dis_2==0||chassis.dis_3==0||chassis.dis_laser==0);
-  can_send_msg(0x66,"close",5);//關閉讀傳感器數值
+  can_send_msg(0x66,"close",5);
   
-  lock1=chassis.dis_1;//存入鎖定值
+  lock1=chassis.dis_1;
   lock2=chassis.dis_2;
   lock3=chassis.dis_3;
   lock_laser=chassis.dis_laser;
-  uprintf("check ok!!!\r\nultrason1=%d\r\nultrason2=%d\r\nultrason3=%d\r\nlaser=%d\r\nturn=%f\r\n",chassis.dis_1,chassis.dis_2,chassis.dis_3,chassis.dis_laser);
+  lockangle=atan2((double)(lock_laser - lock1),(double)dis_bwt_laser_ul1);
+  uprintf("check ok!!!\r\nultrason1=%d\r\nultrason2=%d\r\nultrason3=%d\r\nlaser=%d\r\nturn=%f\r\n",chassis.dis_1,chassis.dis_2,chassis.dis_3,chassis.dis_laser,lockangle);
 }
