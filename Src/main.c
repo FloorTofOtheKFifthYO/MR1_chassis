@@ -1,42 +1,12 @@
-/**
-******************************************************************************
-* File Name          : main.c
-* Description        : Main program body
-******************************************************************************
-** This notice applies to any and all portions of this file
-* that are not between comment pairs USER CODE BEGIN and
-* USER CODE END. Other portions of this file, whether 
-* inserted by the user or by software development tools
-* are owned by their respective copyright owners.
-*
-* COPYRIGHT(c) 2018 STMicroelectronics
-*
-* Redistribution and use in source and binary forms, with or without modification,
-* are permitted provided that the following conditions are met:
-*   1. Redistributions of source code must retain the above copyright notice,
-*      this list of conditions and the following disclaimer.
-*   2. Redistributions in binary form must reproduce the above copyright notice,
-*      this list of conditions and the following disclaimer in the documentation
-*      and/or other materials provided with the distribution.
-*   3. Neither the name of STMicroelectronics nor the names of its contributors
-*      may be used to endorse or promote products derived from this software
-*      without specific prior written permission.
-*
-* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-* AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-* DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-* FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-* DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-* SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-* CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-* OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-* OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-*
-******************************************************************************
-*/
-
-/* Includes ------------------------------------------------------------------*/
+/*******************************************************************************
+Copyright:      2018/12/18
+File name:      main.c
+Description:    程序入口，包含系统时钟配置，外设初始化。
+Author:         徐铭远，王云轩
+Version：       底盘贝塞尔曲线+action全场定位
+Data:           2018/12/18 22:36
+History:        删去vega.c文件
+*******************************************************************************/
 #include "main.h"
 #include "stm32f4xx_hal.h"
 #include "can.h"
@@ -48,91 +18,49 @@
 #include "cmd_func.h"
 #include "chassis.h"
 #include "vega.h"
+#include "dma.h"
 
 int main_flag = 0;
 int chassis_flag = 0;
-/* USER CODE BEGIN Includes */
 
-/* USER CODE END Includes */
-
-/* Private variables ---------------------------------------------------------*/
-
-/* USER CODE BEGIN PV */
-/* Private variables ---------------------------------------------------------*/
-/* USER CODE END PV */
-
-/* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 
-/* USER CODE BEGIN PFP */
-/* Private function prototypes -----------------------------------------------*/
-
-/* USER CODE END PFP */
-
-/* USER CODE BEGIN 0 */
-/* USER CODE END 0 */
-int main()
+void main()
 {
-    
-    /* USER CODE BEGIN 1 */
-    
-    /* USER CODE END 1 */
-    
-    /* MCU Configuration----------------------------------------------------------*/
-    
-    /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
     HAL_Init();
+    SystemClock_Config();    
     
-    /* USER CODE BEGIN Init */
-    
-    /* USER CODE END Init */
-    
-    /* Configure the system clock */
-    SystemClock_Config();
-    
-    /* USER CODE BEGIN SysInit */
-    
-    /* USER CODE END SysInit */
-    
-    /* Initialize all configured peripherals */
     MX_GPIO_Init();
+    MX_DMA_Init();
     MX_CAN1_Init();
     MX_TIM1_Init();
+    MX_UART5_Init();
     MX_USART2_UART_Init();
     MX_USART1_UART_Init();
     MX_USART3_UART_Init();
     MX_UART4_Init();
     MX_TIM2_Init();
-    MX_UART5_Init();
-
-    /* USER CODE BEGIN 2 */
+    
     
     cmd_init();
     can_init(); 
     chassis_init();
     
-    
-    //can_send_msg(325, "hello",6);
+    uprintf(CMD_USART,"start...\r\n");
     main_flag = 1;
-    /* USER CODE END 2 */
-    
-    /* Infinite loop */
-    /* USER CODE BEGIN WHILE */
+    usart_init();//在里面开串口接收中断
     while (1)
     {
-       // uprintf("here\r\n");
-        /* USER CODE END WHILE */
-        //chassis_update();
+        //uprintf(CMD_USART,"start...\r\n");
         usart_exc();
-        //if(chassis_flag == 1)
+        if(chassis_flag == 1)
         {
             chassis_exe();
             chassis_flag = 0;
         }
-        //HAL_Delay(1000);
-        /* USER CODE BEGIN 3 */
     }
-    /* USER CODE END 3 */
+    
+    
 }
 
 /** System Clock Configuration
@@ -194,29 +122,28 @@ void SystemClock_Config(void)
 void HAL_SYSTICK_Callback(void){
     static int time_1ms_cnt;
     time_1ms_cnt++;
-    if(main_flag == 1)
+    if( main_flag == 1)
     {
         if(time_1ms_cnt % 10 == 0)
         { 
             chassis_flag = 1;
         }
-        if(time_1ms_cnt % 500 == 0)
-        {
-            //uprintf("g_ispeed=%d, g_fturn=%f\r\n",g_ispeed,g_fturn);
-        }
         if(time_1ms_cnt % 50 == 0)
         {
-            uprintf("%f,",chassis.pos_x);
-            uprintf("%f\r\n",chassis.pos_y);
-            //send_wave(1000*chassis.pos_x,1000*chassis.pos_y,1000*chassis.angle,turn_output);
-            //uprintf("chassis.angle = %f,chassis.pos_x = %f,chassis.pos_y = %f",chassis.angle,chassis.pos_x,chassis.pos_y);
+            
+        }
+        if(time_1ms_cnt % 500 == 0)
+        {
+            
         }
         if(time_1ms_cnt >= 65533)
         {
             time_1ms_cnt = 0;
         }
+        
     }
 }
+
 /* USER CODE END 4 */
 
 /**
@@ -230,6 +157,7 @@ void _Error_Handler(char * file, int line)
     /* User can add his own implementation to report the HAL error return state */
     while(1) 
     {
+        uprintf(CMD_USART,"程序废了，老哥，赶紧复位！！！！！！！\r\n");
     }
     /* USER CODE END Error_Handler_Debug */ 
 }

@@ -1,47 +1,19 @@
-/**
-  ******************************************************************************
-  * File Name          : CAN.c
-  * Description        : This file provides code for the configuration
-  *                      of the CAN instances.
-  ******************************************************************************
-  ** This notice applies to any and all portions of this file
-  * that are not between comment pairs USER CODE BEGIN and
-  * USER CODE END. Other portions of this file, whether 
-  * inserted by the user or by software development tools
-  * are owned by their respective copyright owners.
-  *
-  * COPYRIGHT(c) 2018 STMicroelectronics
-  *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-  *
-  ******************************************************************************
-  */
-
-/* Includes ------------------------------------------------------------------*/
+/*******************************************************************************
+Copyright:      2018/12/18
+File name:      can.c
+Description:    can总线通信，can系统配置，can初始化，can过滤器配置，can发送函数
+                can添加回调，can接收列表匹配，can接收回调，can错误回调
+Author:         王云轩
+Version：       1.0
+Data:           2018/12/18 22:36
+History:        无
+Bug:            接收过快can溢出
+*******************************************************************************/
 #include "can.h"
 #include <assert.h>
 #include "gpio.h"
 #include "vega.h"
+#include "distance.h"
 
 /* USER CODE BEGIN 0 */
 static int canlistnum = 0;
@@ -150,8 +122,12 @@ void can_init()
     {
         __HAL_CAN_ENABLE_IT(&hcan1, CAN_IT_FOV0 | CAN_IT_FMP0);
     }
-    uprintf("can ready!!!");
-      can_add_callback(0X11,vega_msg_rcv_callback);//添加接收vega消息的回调函数
+    uprintf(CMD_USART,"can ready!!!");
+      //can_add_callback(0X11,vega_msg_rcv_callback);//添加接收vega消息的回调函数
+      can_add_callback(0x08,laser_msg_rev_callback);//激光距离
+      can_add_callback(0x10,laser_msg_rev_callback);//激光距离
+      can_add_callback(0x40,ultrasonic_msg_rev_callback);//超声波
+      can_add_callback(0x66,ultrasonic_msg_rev_callback);//超声波
 }
 
 void Configure_Filter(void)
@@ -238,6 +214,7 @@ int CAN_LIST_MATCH(uint32_t ID, CanRxMsgTypeDef* pRxMsg)
 ****/
 void HAL_CAN_RxCpltCallback(CAN_HandleTypeDef* hcan1)	
 {
+    RxMessage.ExtId=hcan1->pRxMsg->StdId;
     CAN_LIST_MATCH(hcan1->pRxMsg->StdId, hcan1->pRxMsg);
     if(HAL_CAN_Receive_IT(hcan1,CAN_FIFO0)!=HAL_OK)
     {
@@ -245,6 +222,9 @@ void HAL_CAN_RxCpltCallback(CAN_HandleTypeDef* hcan1)
     }
 }
 
+/****
+    *@brief can错误回调
+****/
 void HAL_CAN_ErrorCallback(CAN_HandleTypeDef *hcan){
 
     hcan1.Instance->MSR=0;
@@ -253,6 +233,7 @@ void HAL_CAN_ErrorCallback(CAN_HandleTypeDef *hcan){
         __HAL_CAN_ENABLE_IT(hcan, CAN_IT_FOV0 | CAN_IT_FMP0);
     }
 }
+
 /* USER CODE END 1 */
 
 /**

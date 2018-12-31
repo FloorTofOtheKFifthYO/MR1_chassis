@@ -25,7 +25,7 @@ if not "%~1" == "" goto debugFile
 
 @echo on 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\common\bin\cspybat" -f "C:\Users\wangyunxuan\Desktop\Robocon\chassis\MR1_chassis\EWARM\settings\chassis.chassis.general.xcl" --backend -f "C:\Users\wangyunxuan\Desktop\Robocon\chassis\MR1_chassis\EWARM\settings\chassis.chassis.driver.xcl" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\common\bin\cspybat" -f "C:\Users\wangyunxuan\Desktop\Robocon\chassis\chassis_12_27\EWARM\settings\chassis.chassis.general.xcl" --backend -f "C:\Users\wangyunxuan\Desktop\Robocon\chassis\chassis_12_27\EWARM\settings\chassis.chassis.driver.xcl" 
 
 @echo off 
 goto end 
@@ -34,7 +34,7 @@ goto end
 
 @echo on 
 
-"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\common\bin\cspybat" -f "C:\Users\wangyunxuan\Desktop\Robocon\chassis\MR1_chassis\EWARM\settings\chassis.chassis.general.xcl" "--debug_file=%~1" --backend -f "C:\Users\wangyunxuan\Desktop\Robocon\chassis\MR1_chassis\EWARM\settings\chassis.chassis.driver.xcl" 
+"C:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\common\bin\cspybat" -f "C:\Users\wangyunxuan\Desktop\Robocon\chassis\chassis_12_27\EWARM\settings\chassis.chassis.general.xcl" "--debug_file=%~1" --backend -f "C:\Users\wangyunxuan\Desktop\Robocon\chassis\chassis_12_27\EWARM\settings\chassis.chassis.driver.xcl" 
 
 @echo off 
 :end

@@ -50,9 +50,12 @@
 #include "stdarg.h"
 #include "cmd.h"
 #include "cmd_func.h"
+#include "vega_action.h"
 /* USER CODE BEGIN Includes */
 #define RXBUFFERSIZE 1
 #define USART_REC_LEN  200
+#define CMD_USART &huart5
+#define ACTION_USART &huart2
 /* USER CODE END Includes */
 
 extern UART_HandleTypeDef huart4;
@@ -63,7 +66,7 @@ extern UART_HandleTypeDef huart3;
 extern char USART_RX_BUF[USART_REC_LEN];       //自定义接收存放的数组
 
 /* USER CODE BEGIN Private defines */
-
+void usart_init();
 /* USER CODE END Private defines */
 
 extern void _Error_Handler(char *, int);
@@ -73,7 +76,7 @@ void MX_UART5_Init(void);
 void MX_USART1_UART_Init(void);
 void MX_USART2_UART_Init(void);
 void MX_USART3_UART_Init(void);
-void uprintf(char *fmt, ...);
+void uprintf(UART_HandleTypeDef *huart,char *fmt, ...);
 void USART_SendString(USART_TypeDef* USARTx, char *fmt, ...);
 /* USER CODE BEGIN Prototypes */
 void send_wave(float arg1,float arg2,float arg3,float arg4);

@@ -23,9 +23,9 @@ int vega_init(int *p_pos_x,int *p_pos_y,float *p_angle){
     
     
    
-    uprintf("g_vega_angle=%f\r\n",g_vega_angle);
-    uprintf("g_vega_pos_y=%f\r\n",g_vega_pos_y);
-    uprintf("g_vega_pos_x=%f\r\n",g_vega_pos_x);
+    uprintf(CMD_USART,"g_vega_angle=%f\r\n",g_vega_angle);
+    uprintf(CMD_USART,"g_vega_pos_y=%f\r\n",g_vega_pos_y);
+    uprintf(CMD_USART,"g_vega_pos_x=%f\r\n",g_vega_pos_x);
     HAL_Delay(1000);
     
     return 1;

@@ -1,6 +1,11 @@
+#ifndef __maxon_H
+#define __maxon_H
+#ifdef __cplusplus
+ extern "C" {
+#endif
 #include "stm32f4xx.h"
-
-#define MOTOR_UART USART1
+#include "main.h"
+#include "usart.h"
 
 #define NUMBER    2
 #define DATA_4    5
@@ -10,7 +15,6 @@
 #define CHECK     9
 #define MOTOR0_ID huart4
 #define MOTOR1_ID huart1
-#define MOTOR2_ID huart2
 #define MOTOR3_ID huart3
 
 
@@ -19,3 +23,7 @@ void maxon_setSpeed_p(UART_HandleTypeDef* USARTx , int p);
 void maxon_setSpeed(UART_HandleTypeDef* USARTx, int speed);
 void maxon_save(UART_HandleTypeDef* USARTx);
 
+#ifdef __cplusplus
+}
+#endif
+#endif /*__ maxon_H */

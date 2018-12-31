@@ -11,7 +11,9 @@ extern "C" {
 #include "math.h"  
 #include "track.h"
 #include <stdbool.h>
-    
+#include "distance.h"
+#include "vega_action.h"
+#include "vavle.h"
     
 #define PI 3.1415926535
 #define EXP 2.718281828
@@ -19,8 +21,8 @@ extern "C" {
 typedef struct
 {
 	//全场定位传回的数据
-	int g_vega_pos_x; 
-	int g_vega_pos_y;   
+	float g_vega_pos_x; 
+	float g_vega_pos_y;   
 	float g_vega_angle;
 	
 	float radar_theta;
@@ -34,7 +36,10 @@ typedef struct
 	//状态
 	enum {car_stop, car_running, car_ready} car_state;//车的运动状态
 	
-	
+	int dis_1;
+        int dis_2;
+        int dis_laser1;
+        int dis_laser2;
 	//参数
 	float Angle_radium;//停角度范围
 	int Angle_speed;
@@ -51,8 +56,6 @@ typedef struct
 extern float ERR_angle_m3 , ERR_angle_m1 , ERR_angle_m0  ;
 extern float chassis_turn_angle_KP;
 extern float chassis_turn_angle_KD;
-extern float quickturn_KP;
-extern float quickturn_KD;
 extern int g_ispeed;
 extern float g_fangle;
 extern float g_fturn;
@@ -66,6 +69,7 @@ void chassis_gostraight(int speed , float angle, float turn);
 void chassis_calculate_dis_matrix();
 void chassis_handle_control();
 void chassis_handle(CanRxMsgTypeDef* pRxMsg);
+void chassis_rocker(CanRxMsgTypeDef* pRxMsg);
 extern void chassis_exe();
 extern void chassis_go_route(int);
 

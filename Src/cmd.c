@@ -1,3 +1,14 @@
+/*******************************************************************************
+Copyright:      2018/12/18
+File name:      cmd.c
+Description:    存放串口命令，cmd初始化（使用前必须初始化分配空间），cmd解析，
+                cmd执行函数，cmd帮助函数
+Author:         徐铭远
+Version：       1.0
+Data:           2018/12/18 22:36
+History:        无
+Bug:            无
+*******************************************************************************/
 #include "cmd.h"
 static cmd_struct cmd_tbl[] = {
     /*
@@ -6,17 +17,18 @@ static cmd_struct cmd_tbl[] = {
      * CMD_ADD("命令名","命令使用方法（可为空格,但不能不加双引号）",对应命令的执行函数名)
      * 注意最后一个不需要逗号，前面的都需要逗号
      */
-    CMD_ADD("help"," Print all command and usage ",cmd_help_func),
-    CMD_ADD("hello"," ",cmd_hello_func),
-    CMD_ADD("set_speed","设置电机速度",cmd_set_speed_func),
-    CMD_ADD("stop","急停",cmd_stop_func),
-    CMD_ADD("go_straight","某角度直行",cmd_go_straight_func),
-    CMD_ADD("go_route","按路径行走",cmd_go_route_func),
-    CMD_ADD("reset_vega","复位全场定位",cmd_reset_vega),
-    CMD_ADD("modify_angle","改变方向解算角",cmd_modify_angle),
+    CMD_ADD("help","帮助。eg；help",cmd_help_func),
+    CMD_ADD("hello","问好。eg:hello",cmd_hello_func),
+    CMD_ADD("stop","急停。eg:stop",cmd_stop_func),
+    CMD_ADD("go_straight","某角度直行。eg:go_straight speed angle",cmd_go_straight_func),
+    CMD_ADD("go_route","按路径行走。eg:go_route 1 5000 1 2500",cmd_go_route_func),
+    CMD_ADD("reset_vega","复位全场定位.eg:reset_vega",cmd_reset_vega),
+    CMD_ADD("modify_angle","改变方向解算角。eg：modify_angle 30 30",cmd_modify_angle),
     CMD_ADD("angle_pid","底盘自转角pid",cmd_angle_pid),
-    CMD_ADD("start_acc","加速曲线",cmd_chassis_acc),
-    CMD_ADD("qt_pid","快速转向pid",cmd_quickturn_pid)
+    CMD_ADD("print_pos","打印全场定位位置",cmd_print_pos),
+    CMD_ADD("go_point","去目标点",cmd_go_targetpoint),
+    CMD_ADD("read","读传感器距离值",cmd_read_distance),
+    CMD_ADD("lock_x_y_angle","锁定x y angle",cmd_lock_x_y_angle)
 };
 char cmd_line[MAX_CMD_LINE_LENGTH + 1];
 char *cmd_argv[MAX_ARGC]; 
@@ -90,10 +102,10 @@ void cmd_help_func(int argc,char *argv[]){
     uint32_t cmd_num;
     cmd_num = sizeof(cmd_tbl)/sizeof(cmd_tbl[0]);
     if(argc > 1){
-        uprintf("msg:\n help命令参数过多\n\n");      
+        uprintf(CMD_USART,"msg:\n help命令参数过多\n\n");      
         return;         
     }
     for(i = 0;i < cmd_num;i++){
-        uprintf("cmd:%s\nusage:%s\n\n",cmd_tbl[i].cmd_name,cmd_tbl[i].cmd_usage);
+        uprintf(CMD_USART,"cmd:%s\nusage:%s\n\n",cmd_tbl[i].cmd_name,cmd_tbl[i].cmd_usage);
     }
 }
